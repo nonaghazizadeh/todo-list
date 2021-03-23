@@ -67,6 +67,7 @@ function addTask(name) {
   firstButton = document.createElement('button');
   firstButton.className = 'btn';
   firstButton.className += ' btn-sm';
+  firstButton.className += ' btn-light';
   firstButton.setAttribute("id", "pin-button");
   iconForFirstButton = document.createElement('i');
   iconForFirstButton.className = 'fa';
@@ -81,6 +82,7 @@ function addTask(name) {
   secondButton = document.createElement('button');
   secondButton.className = 'btn';
   secondButton.className += ' btn-sm';
+  secondButton.className += ' btn-light';
   secondButton.setAttribute("id", "done-button");
   iconForSecondButton = document.createElement('i');
   iconForSecondButton.className = 'fa';
