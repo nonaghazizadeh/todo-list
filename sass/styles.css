@@ -9,6 +9,12 @@ h6 {
   line-height: 2;
 }
 
+.btn-default:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
 .btn-circle {
   width: 30px;
   height: 30px;

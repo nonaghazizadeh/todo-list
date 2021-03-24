@@ -12,6 +12,10 @@ h6 {
   margin-top: 20px;
   line-height: 2;
 }
+.btn-default:focus {
+  outline: none;
+  box-shadow: none;
+}
 
 .btn-circle {
   width: 30px;
