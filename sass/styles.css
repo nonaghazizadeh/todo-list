@@ -36,6 +36,12 @@ h6 {
   display: inline-block;
   width: 100%;
   padding: 10px 10px;
+  -webkit-transition: opacity 500ms;
+  transition: opacity 500ms;
+}
+
+.page-todo .task .desc.faded-out {
+  opacity: 0;
 }
 
 .high-container .pin,

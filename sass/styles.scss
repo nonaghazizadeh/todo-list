@@ -37,6 +37,10 @@ h6 {
       display: inline-block;
       width: 100%;
       padding: 10px 10px;
+      transition: opacity 500ms;
+      &.faded-out {
+        opacity: 0;
+      }
     }
   }
 }

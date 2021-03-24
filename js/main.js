@@ -22,19 +22,31 @@ Array.from(colors).forEach((col) => {
 document.querySelector('#add').addEventListener("click", function () {
   var name = document.querySelector("#input-name").value;
   if (name != "") {
-    desc = addTask(name);
+    var desc = addTask(name);
     if (priorirty === 'High priority') {
       var element = document.querySelector(".high-container");
       element.appendChild(desc);
+      desc.classList.add("box", "faded-out")
+      setTimeout(function () {
+        desc.classList.remove("faded-out")
+      }, 500);
     }
     else if (priorirty === 'Medium priority') {
       var element = document.querySelector(".medium-container");
       element.appendChild(desc);
+      desc.classList.add("box", "faded-out")
+      setTimeout(function () {
+        desc.classList.remove("faded-out")
+      }, 500);
     }
 
     else if (priorirty === 'Low priority') {
       var element = document.querySelector(".low-container");
       element.appendChild(desc);
+      desc.classList.add("faded-out")
+      setTimeout(function () {
+        desc.classList.remove("faded-out")
+      }, 500);
     }
     document.querySelector("#input-name").value = '';
     document.querySelector(".priority-selected").textContent = "Choose a priority";
@@ -151,8 +163,6 @@ function secondPinFunc() {
   var parent = item.parentNode;
   pinning(parent,item)   
 }
-
-
 
 function pinning(parent, item) {
   prioritySection = parent.getAttribute('class').split(" ")[2];
