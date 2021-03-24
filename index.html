@@ -9,14 +9,14 @@
     <link href="css/font-awesome.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="sass/styles.css">
 </head>
 
 <body>
     <div class="container">
         <div class="row ">
             <div class="col pt-3">
-                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="input-name">
+                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="input-name" required>
             </div>
             <div class="col pt-3">
                 <div class="dropdown">
@@ -50,49 +50,44 @@
         </div>
     </div>
     <div class="container">
-        <button type="button" class="btn btn-default btn-circle mt-3" id="filter-red"></button>
-        <button type="button" class="btn btn-default btn-circle mt-3" id="filter-blue"></button>
-        <button type="button" class="btn btn-default btn-circle mt-3" id="filter-green"></button>
+        <button type="button" class="btn btn-default mt-3" id="remove-filter"><i class='fa fa-filter fa-2x'></i></button>
+        <button type="button" class="btn btn-danger btn-circle mt-3" id="filter-red"></button>
+        <button type="button" class="btn btn-info btn-circle mt-3" id="filter-blue"></button>
+        <button type="button" class="btn btn-success btn-circle mt-3" id="filter-green"></button>
     </div>
     <div class="container">
         <h1>Tasks</h1>
     </div>
     
-    <div class="container page-todo bootstrap snippets bootdeys">
-        
+    <div class="container page-todo">
         <div class="tasks">
             <h6>Pin Tasks</h6>
             <div class="task-list">
-
                 <div class="task high high-container-pin"></div>
-    
                 <div class="task medium medium-container-pin"></div>
-    
                 <div class="task low low-container-pin"></div>
             </div>
         </div>
     </div>
 
-    <div class="container page-todo bootstrap snippets bootdeys">
-        
+    <div class="container page-todo">   
         <div class="tasks">
             <h6>Todo Tasks</h6>
             <div class="task-list">
-
                 <div class="task high high-container"></div>
-    
                 <div class="task medium medium-container"></div>
-
                 <div class="task low low-container"></div>
             </div>
         </div>
     </div>
 
-    <div class="container page-todo bootstrap snippets bootdeys">
+    <div class="container page-todo">
         <div class="tasks">
             <h6>Completed Tasks</h6>
             <div class="task-list">
-                <div class="task done-list"></div>
+                <div class="task high high-container-done"></div>
+                <div class="task medium medium-container-done"></div>
+                <div class="task low low-container-done"></div>
             </div>
         </div>
     </div>
