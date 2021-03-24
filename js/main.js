@@ -1,18 +1,26 @@
-isPinnedBefore = false;
 var priorirty;
-$('.dropdown-item-priority').click(function () {
-  priorirty = $(this).text();
-  $('.priority-selected').text($(this).text());
-});
-var color;
-$('.dropdown-item-color').click(function () {
-  color = $(this).text();
-  color = color.toLowerCase();
-  $('.color-selected').text($(this).text());  
+var priorirties = document.querySelectorAll('.dropdown-item-priority');
+
+Array.from(priorirties).forEach((pri) => {
+  pri.addEventListener('click', (event) => {
+    priorirty = pri.textContent;
+    document.querySelector('.priority-selected').innerHTML = pri.textContent;
+  });
 });
 
-$('#add').click(function () {
-  var name = $('#input-name').val();
+var color;
+var colors = document.querySelectorAll('.dropdown-item-color');
+
+Array.from(colors).forEach((col) => {
+  col.addEventListener('click', (event) => {
+    color = col.textContent;
+    color = color.toLowerCase();
+    document.querySelector('.color-selected').innerHTML = col.textContent;
+  });
+});
+
+document.querySelector('#add').addEventListener("click", function () {
+  var name = document.querySelector("#input-name").value;
   if (name != "") {
     desc = addTask(name);
     if (priorirty === 'High priority') {
@@ -28,37 +36,53 @@ $('#add').click(function () {
       var element = document.querySelector(".low-container");
       element.appendChild(desc);
     }
-    $('#input-name').val('');
-    $('.priority-selected').text('Choose a priority');
-    $('.color-selected').text('Choose a color');  
+    document.querySelector("#input-name").value = '';
+    document.querySelector(".priority-selected").textContent = "Choose a priority";
+    document.querySelector(".color-selected").textContent = "Choose a color";
     }
 })
 
-$('#filter-red').click(function () {
-  $('.task').children().hide();
-  var red = "red";
-  $('.desc[color='+red+']').show();
+document.querySelector('#filter-red').addEventListener("click", function () {
+  var tasks = document.querySelectorAll(".task .desc");
+  for (i = 0; i < tasks.length; i++){
+    tasks[i].style.display = "none";
+  }
+  for (i = 0; i < tasks.length; i++){
+    if (tasks[i].getAttribute("color") === "red") {
+      tasks[i].style.display = "block";
+    }
+  }
 })
 
-$('#filter-green').click(function () {
-  $('.task').children().hide();
-  var green = "green";
-  $('.desc[color='+green+']').show();
+document.querySelector('#filter-green').addEventListener("click", function () {
+  var tasks = document.querySelectorAll(".task .desc");
+  for (i = 0; i < tasks.length; i++){
+    tasks[i].style.display = "none";
+  }
+  for (i = 0; i < tasks.length; i++){
+    if (tasks[i].getAttribute("color") === "green") {
+      tasks[i].style.display = "block";
+    }
+  }
 })
 
-$('#filter-blue').click(function () {
-  $('.task').children().hide();
-  var blue = "blue";
-  $('.desc[color='+blue+']').show();
+document.querySelector('#filter-blue').addEventListener("click", function () {
+  var tasks = document.querySelectorAll(".task .desc");
+  for (i = 0; i < tasks.length; i++){
+    tasks[i].style.display = "none";
+  }
+  for (i = 0; i < tasks.length; i++){
+    if (tasks[i].getAttribute("color") === "blue") {
+      tasks[i].style.display = "block";
+    }
+  }
 })
 
-$('#remove-filter').click(function () {
-  var blue = "blue";
-  $('.desc[color=' + blue + ']').show();
-  var green = "green";
-  $('.desc[color=' + green + ']').show();
-  var red = "red";
-  $('.desc[color='+red+']').show();
+document.querySelector('#remove-filter').addEventListener("click", function () {
+  var tasks = document.querySelectorAll(".task .desc");
+  for (i = 0; i < tasks.length; i++){
+    tasks[i].style.display = "block";
+  }
 })
 
 function addTask(name) {
@@ -122,10 +146,46 @@ function pinFunc() {
   pinning(parent, item);
 }
 
-function unpinFunc() {
+function secondPinFunc() {
   var item = this.parentNode.parentNode;
   var parent = item.parentNode;
-  console.log(item);
+  pinning(parent,item)   
+}
+
+
+
+function pinning(parent, item) {
+  prioritySection = parent.getAttribute('class').split(" ")[2];
+  if (prioritySection === 'high-container') {
+    let pinList = document.querySelector(".high-container-pin");
+    pinList.appendChild(item.cloneNode(true));
+    x = pinList.lastElementChild.lastElementChild;
+    x.children[1].addEventListener('click', unpin);
+    x.children[1].style.color = "red";
+    x.children[2].addEventListener('click', secondDoneFunc);
+
+  }
+  else if (prioritySection === 'medium-container') {
+    let pinList = document.querySelector(".medium-container-pin");
+    pinList.appendChild(item.cloneNode(true));
+    x = pinList.lastElementChild.lastElementChild;
+    x.children[1].addEventListener('click', unpin);
+    x.children[2].addEventListener('click', secondDoneFunc);
+
+  }
+  else if (prioritySection === 'low-container') {
+    let pinList = document.querySelector(".low-container-pin");
+    pinList.appendChild(item.cloneNode(true));
+    x = pinList.lastElementChild.lastElementChild;
+    x.children[1].addEventListener('click', unpin);
+    x.children[2].addEventListener('click', secondDoneFunc);
+  }
+  parent.removeChild(item);
+}
+
+function unpin() {
+  var item = this.parentNode.parentNode;
+  var parent = item.parentNode;
     
   prioritySection = parent.getAttribute('class').split(" ")[2];
   if (prioritySection === 'high-container-pin') {
@@ -148,41 +208,6 @@ function unpinFunc() {
     pinList.appendChild(item.cloneNode(true));
     x = pinList.lastElementChild.lastElementChild;
     x.children[1].addEventListener('click', secondPinFunc);
-    x.children[2].addEventListener('click', secondDoneFunc);
-  }
-  parent.removeChild(item);
-}
-
-function secondPinFunc() {
-  var item = this.parentNode.parentNode;
-  var parent = item.parentNode;
-  pinning(parent,item)   
-}
-
-function pinning(parent, item) {
-  prioritySection = parent.getAttribute('class').split(" ")[2];
-  if (prioritySection === 'high-container') {
-    let pinList = document.querySelector(".high-container-pin");
-    pinList.appendChild(item.cloneNode(true));
-    x = pinList.lastElementChild.lastElementChild;
-    x.children[1].addEventListener('click', unpinFunc);
-    x.children[1].style.color = "red";
-    x.children[2].addEventListener('click', secondDoneFunc);
-
-  }
-  else if (prioritySection === 'medium-container') {
-    let pinList = document.querySelector(".medium-container-pin");
-    pinList.appendChild(item.cloneNode(true));
-    x = pinList.lastElementChild.lastElementChild;
-    x.children[1].addEventListener('click', unpinFunc);
-    x.children[2].addEventListener('click', secondDoneFunc);
-
-  }
-  else if (prioritySection === 'low-container') {
-    let pinList = document.querySelector(".low-container-pin");
-    pinList.appendChild(item.cloneNode(true));
-    x = pinList.lastElementChild.lastElementChild;
-    x.children[1].addEventListener('click', unpinFunc);
     x.children[2].addEventListener('click', secondDoneFunc);
   }
   parent.removeChild(item);
@@ -242,17 +267,13 @@ function donning(parent, item) {
 }
 
 function undone() {
-
   var item = this.parentNode.parentNode;
   var parent = item.parentNode;
   prioritySection = parent.getAttribute('class').split(" ")[2];
-  console.log(item);
-  console.log(parent);
   x = item.cloneNode(true);
   inner = x.lastElementChild;
   inner.removeChild(x.lastElementChild.lastElementChild);
   inner.lastElementChild.style.textDecoration = "none";
-  console.log(x);
 
   firstButtonContainer = document.createElement('div');
   firstButtonContainer.className = 'col-1';
