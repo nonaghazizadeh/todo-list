@@ -169,26 +169,26 @@ function pinning(parent, item) {
   if (prioritySection === 'high-container') {
     let pinList = document.querySelector(".high-container-pin");
     pinList.appendChild(item.cloneNode(true));
-    x = pinList.lastElementChild.lastElementChild;
-    x.children[1].addEventListener('click', unpin);
-    x.children[1].style.color = "red";
-    x.children[2].addEventListener('click', secondDoneFunc);
+    btnWrapper = pinList.lastElementChild.lastElementChild;
+    btnWrapper.children[1].addEventListener('click', unpin);
+    btnWrapper.children[1].style.color = "red";
+    btnWrapper.children[2].addEventListener('click', secondDoneFunc);
 
   }
   else if (prioritySection === 'medium-container') {
     let pinList = document.querySelector(".medium-container-pin");
     pinList.appendChild(item.cloneNode(true));
-    x = pinList.lastElementChild.lastElementChild;
-    x.children[1].addEventListener('click', unpin);
-    x.children[2].addEventListener('click', secondDoneFunc);
+    btnWrapper = pinList.lastElementChild.lastElementChild;
+    btnWrapper.children[1].addEventListener('click', unpin);
+    btnWrapper.children[2].addEventListener('click', secondDoneFunc);
 
   }
   else if (prioritySection === 'low-container') {
     let pinList = document.querySelector(".low-container-pin");
     pinList.appendChild(item.cloneNode(true));
-    x = pinList.lastElementChild.lastElementChild;
-    x.children[1].addEventListener('click', unpin);
-    x.children[2].addEventListener('click', secondDoneFunc);
+    btnWrapper = pinList.lastElementChild.lastElementChild;
+    btnWrapper.children[1].addEventListener('click', unpin);
+    btnWrapper.children[2].addEventListener('click', secondDoneFunc);
   }
   parent.removeChild(item);
 }
@@ -201,24 +201,24 @@ function unpin() {
   if (prioritySection === 'high-container-pin') {
     let pinList = document.querySelector(".high-container");
     pinList.appendChild(item.cloneNode(true));
-    x = pinList.lastElementChild.lastElementChild;
-    x.children[1].addEventListener('click', secondPinFunc);
-    x.children[2].addEventListener('click', secondDoneFunc);
+    btnWrapper = pinList.lastElementChild.lastElementChild;
+    btnWrapper.children[1].addEventListener('click', secondPinFunc);
+    btnWrapper.children[2].addEventListener('click', secondDoneFunc);
 
   }
   else if (prioritySection === 'medium-container-pin') {
     let pinList = document.querySelector(".medium-container");
     pinList.appendChild(item.cloneNode(true));
-    x = pinList.lastElementChild.lastElementChild;
-    x.children[1].addEventListener('click', secondPinFunc);
-    x.children[2].addEventListener('click', secondDoneFunc);
+    btnWrapper = pinList.lastElementChild.lastElementChild;
+    btnWrapper.children[1].addEventListener('click', secondPinFunc);
+    btnWrapper.children[2].addEventListener('click', secondDoneFunc);
   }
   else if (prioritySection === 'low-container-pin') {
     let pinList = document.querySelector(".low-container");
     pinList.appendChild(item.cloneNode(true));
-    x = pinList.lastElementChild.lastElementChild;
-    x.children[1].addEventListener('click', secondPinFunc);
-    x.children[2].addEventListener('click', secondDoneFunc);
+    btnWrapper = pinList.lastElementChild.lastElementChild;
+    btnWrapper.children[1].addEventListener('click', secondPinFunc);
+    btnWrapper.children[2].addEventListener('click', secondDoneFunc);
   }
   parent.removeChild(item);
 }
@@ -238,14 +238,14 @@ function secondDoneFunc() {
 function donning(parent, item) {
   prioritySection = parent.getAttribute('class').split(" ")[2];
 
-  x = item.cloneNode(true);
-  inner = x.lastElementChild;
-  firstButton = x.lastElementChild.lastElementChild;
+  clonedTask = item.cloneNode(true);
+  inner = clonedTask.lastElementChild;
+  firstButton = clonedTask.lastElementChild.lastElementChild;
   inner.removeChild(firstButton);
   
-  secondButton = x.lastElementChild.children[1];
+  secondButton = clonedTask.lastElementChild.children[1];
   inner.removeChild(secondButton);
-  text = x.lastElementChild.children[0];
+  text = clonedTask.lastElementChild.children[0];
   text.style.textDecoration = "line-through";
 
   secondButtonContainer = document.createElement('div');
@@ -259,18 +259,18 @@ function donning(parent, item) {
   iconForSecondButton.className += ' fa-times';
   secondButton.addEventListener('click', undone);
   secondButton.appendChild(iconForSecondButton);
-  x.lastElementChild.appendChild(secondButton);
+  clonedTask.lastElementChild.appendChild(secondButton);
   if (prioritySection === 'high-container' || prioritySection === 'high-container-pin') {
     let doneList = document.querySelector('.high-container-done');
-    doneList.appendChild(x);
+    doneList.appendChild(clonedTask);
   }
   else if (prioritySection === 'medium-container' || prioritySection === 'medium-container-pin') {
     let doneList = document.querySelector('.medium-container-done');
-    doneList.appendChild(x);
+    doneList.appendChild(clonedTask);
   }
   else if (prioritySection === 'low-container' || prioritySection === 'low-container-pin') {
     let doneList = document.querySelector('.low-container-done');
-    doneList.appendChild(x);
+    doneList.appendChild(clonedTask);
   }
 
   parent.removeChild(item);
@@ -280,9 +280,9 @@ function undone() {
   var item = this.parentNode.parentNode;
   var parent = item.parentNode;
   prioritySection = parent.getAttribute('class').split(" ")[2];
-  x = item.cloneNode(true);
-  inner = x.lastElementChild;
-  inner.removeChild(x.lastElementChild.lastElementChild);
+  clonedTask = item.cloneNode(true);
+  inner = clonedTask.lastElementChild;
+  inner.removeChild(clonedTask.lastElementChild.lastElementChild);
   inner.lastElementChild.style.textDecoration = "none";
 
   firstButtonContainer = document.createElement('div');
@@ -313,20 +313,20 @@ function undone() {
   secondButton.addEventListener('click', doneFunc);
   secondButton.appendChild(iconForSecondButton);
   secondButtonContainer.appendChild(secondButton);
-  x.lastElementChild.appendChild(firstButtonContainer);
-  x.lastElementChild.appendChild(secondButtonContainer);
+  clonedTask.lastElementChild.appendChild(firstButtonContainer);
+  clonedTask.lastElementChild.appendChild(secondButtonContainer);
 
   if (prioritySection === 'high-container-done') {
     let list = document.querySelector(".high-container");
-    list.appendChild(x);
+    list.appendChild(clonedTask);
   }
   else if (prioritySection === 'medium-container-done') {
     let list = document.querySelector(".medium-container");
-    list.appendChild(x);
+    list.appendChild(clonedTask);
   }
   else if (prioritySection === 'low-container-done') {
     let list = document.querySelector(".low-container");
-    list.appendChild(x);
+    list.appendChild(clonedTask);
   }
   parent.removeChild(item);
 }
